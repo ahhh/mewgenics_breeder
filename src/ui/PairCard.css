@@ -1,0 +1,32 @@
+.paircard { display: flex; flex-direction: column; gap: 0.85rem; }
+
+.paircard__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; flex-wrap: wrap; }
+.paircard__names { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.paircard__name { font-family: var(--stamp); font-size: 1.3rem; line-height: 1.1; }
+.paircard__heart { color: var(--flesh); font-size: 1.05rem; }
+
+.paircard__tier { display: flex; align-items: center; gap: 0.4rem; }
+.paircard__tier-letter {
+  font-family: var(--stamp);
+  font-size: 1.5rem;
+  line-height: 1;
+  border: 2.5px solid currentColor;
+  padding: 0.05rem 0.42rem;
+  transform: rotate(-3deg);
+}
+.paircard__tier--S { color: var(--bile); }
+.paircard__tier--A { color: var(--bile); }
+.paircard__tier--B { color: var(--ink-soft); }
+.paircard__tier--C { color: var(--mustard); }
+.paircard__tier--D { color: var(--wound); }
+
+.paircard__figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 1.1rem; }
+
+.paircard__deep { display: flex; flex-direction: column; gap: 1rem; border-top: 1.5px solid var(--ink); padding-top: 0.85rem; }
+.paircard__parents { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.7rem; }
+.paircard__parents .stamp { display: block; margin-bottom: 0.2rem; }
+.paircard__charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.1rem; }
+.paircard__traits { display: flex; flex-direction: column; }
+.paircard__traits .stamp { margin-bottom: 0.25rem; }
+
+.paircard__cta { align-self: flex-start; }

@@ -1,0 +1,40 @@
+.catcard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  cursor: default;
+}
+
+button.catcard { cursor: pointer; transition: transform 0.09s ease, box-shadow 0.09s ease; }
+button.catcard:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+button.catcard:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
+
+.catcard--selected { box-shadow: 4px 4px 0 var(--bile), 4px 4px 0 1.5px var(--ink); }
+
+.catcard--dead { opacity: 0.62; }
+.catcard--dead .catcard__name::after {
+  content: ' †';
+  color: var(--wound);
+}
+
+.catcard__head { display: flex; flex-direction: column; gap: 0.1rem; }
+.catcard__name { font-family: var(--stamp); font-size: 1.15rem; line-height: 1.1; }
+.catcard__meta { color: var(--ink-faint); }
+
+.catcard__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+.catcard__levelled { color: var(--ink-faint); text-transform: none; letter-spacing: 0; }
+.catcard__room { color: var(--ink-soft); }
+.catcard__reason { color: var(--wound); }
+
+.catcard__traits { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.catcard__traits li {
+  font-size: 0.7rem;
+  border: 1.5px solid var(--ink-faint);
+  padding: 0.02rem 0.32rem;
+  color: var(--ink-soft);
+}
+
+.catcard__fertility { color: var(--ink-faint); }

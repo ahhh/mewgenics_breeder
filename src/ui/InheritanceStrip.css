@@ -1,0 +1,61 @@
+.strip { display: flex; flex-direction: column; gap: 0.55rem; }
+
+.strip__legend {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-bottom: 1.5px dashed var(--ink-faint);
+  padding-bottom: 0.35rem;
+}
+.strip__legend-mid { color: var(--ink-faint); text-align: center; flex: 1; }
+
+.strip__track {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+}
+
+.strip__col { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+
+.strip__stat { text-align: center; color: var(--ink); font-size: 0.7rem; }
+
+.strip__stack {
+  display: flex;
+  flex-direction: column;
+  height: 128px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper-sunk);
+  overflow: hidden;
+}
+
+/* A stat both parents share isn't a roll — draw it as one solid slug. */
+.strip__stack--locked { border-style: double; border-width: 4px; }
+
+.strip__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  line-height: 1.05;
+  border-bottom: 1.5px solid var(--ink);
+  background: var(--paper-card);
+}
+.strip__cell:last-child { border-bottom: 0; }
+
+/* The value Stimulation is pushing toward. */
+.strip__cell--favoured { background: var(--paper); box-shadow: inset 0 0 0 100px rgba(111, 140, 34, 0.16); }
+
+/* A 7 is the ceiling — mark it like a stamped approval. */
+.strip__cell--perfect .strip__value { color: var(--bile); }
+
+.strip__value { font-size: 1.15rem; }
+.strip__odds { font-size: 0.62rem; color: var(--ink-soft); font-weight: 500; }
+
+.strip__foot { text-align: center; font-size: 0.6rem; color: var(--ink-faint); }
+
+@media (max-width: 640px) {
+  .strip__stack { height: 96px; }
+  .strip__value { font-size: 0.95rem; }
+}

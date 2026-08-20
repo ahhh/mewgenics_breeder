@@ -1,0 +1,120 @@
+/* ─────────────────────────────────────────────────────────────────────
+   Mewtation Lab — "the clinic filing system"
+
+   The whole interface is a drawer of specimen cards: index stock, rubber
+   stamps, carbon smudge, hand-cut borders. Everything is quiet except the
+   inheritance strip, which is the one thing this app exists to draw.
+   ───────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Special+Elite&display=swap');
+
+:root {
+  /* Paper */
+  --paper:      #e7e2d6;
+  --paper-card: #f0ece2;
+  --paper-sunk: #d8d2c2;
+
+  /* Ink */
+  --ink:        #16150f;
+  --ink-soft:   #55503f;
+  --ink-faint:  #8d8878;
+
+  /* Stamps — used sparingly, one per idea */
+  --bile:       #6f8c22;  /* good genes */
+  --flesh:      #d4839c;  /* pairing, hearts */
+  --mustard:    #c08d18;  /* caution */
+  --wound:      #97301f;  /* danger, death */
+
+  --stamp: 'Special Elite', 'Courier New', monospace;
+  --body: 'Archivo', -apple-system, 'Segoe UI', system-ui, sans-serif;
+
+  --rule: 1.5px solid var(--ink);
+  --hard-shadow: 4px 4px 0 var(--ink);
+  --hard-shadow-sm: 2px 2px 0 var(--ink);
+
+  --gap: 1.15rem;
+  --radius: 2px;
+}
+
+* { box-sizing: border-box; }
+
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  /* Paper tooth: two offset dot grids, cheap and non-repeating to the eye. */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(22, 21, 15, 0.055) 1px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(22, 21, 15, 0.035) 1px, transparent 0);
+  background-size: 7px 7px, 23px 19px;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--stamp); font-weight: 400; letter-spacing: 0.01em; margin: 0; }
+
+button { font: inherit; color: inherit; }
+
+a { color: var(--ink); }
+
+::selection { background: var(--mustard); color: var(--paper-card); }
+
+:focus-visible {
+  outline: 2.5px solid var(--wound);
+  outline-offset: 2px;
+}
+
+/* ── Stamped label ───────────────────────────────────────────────────
+   The recurring structural device. It marks what a number IS, in the
+   vernacular of a specimen tag, so numbers never float unlabelled.     */
+.stamp {
+  font-family: var(--stamp);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.stamp-box {
+  font-family: var(--stamp);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1.5px solid currentColor;
+  padding: 0.1rem 0.4rem;
+  display: inline-block;
+  transform: rotate(-1.4deg);
+}
+
+/* ── Card ────────────────────────────────────────────────────────────
+   Index stock with a hand-cut edge. The wobble lives on a border-only
+   pseudo-element so the displacement filter never touches the text.    */
+.card {
+  position: relative;
+  background: var(--paper-card);
+  padding: var(--gap);
+  box-shadow: var(--hard-shadow);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--rule);
+  pointer-events: none;
+  filter: url(#torn-edge);
+}
+
+.card--sunk { background: var(--paper-sunk); box-shadow: none; }
+.card--sunk::before { border-width: 1.5px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Numbers must line up in columns. */
+.num { font-variant-numeric: tabular-nums; font-weight: 600; }

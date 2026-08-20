@@ -1,0 +1,96 @@
+.screen { display: flex; flex-direction: column; gap: 1.15rem; }
+
+.screen__head { max-width: 46rem; }
+.screen__title { font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.05; }
+.screen__lede { margin: 0.35rem 0 0; color: var(--ink-soft); font-size: 0.92rem; }
+
+.empty {
+  border: 1.5px dashed var(--ink-faint);
+  padding: 1.6rem;
+  text-align: center;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.grid { display: grid; gap: 1rem; }
+.grid--cats { grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); }
+.grid--pairs { grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); }
+
+/* ── Toolbar ── */
+.toolbar { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; }
+.toolbar__field { display: flex; flex-direction: column; gap: 0.15rem; }
+.toolbar__field input,
+.toolbar__field select {
+  font: inherit;
+  font-size: 0.88rem;
+  background: var(--paper-card);
+  border: 1.5px solid var(--ink);
+  padding: 0.28rem 0.45rem;
+  min-width: 11rem;
+}
+.toolbar__count { margin-left: auto; color: var(--ink-faint); }
+
+.toggle { display: flex; align-items: center; gap: 0.45rem; font-size: 0.84rem; color: var(--ink-soft); cursor: pointer; }
+.toggle input { accent-color: var(--bile); width: 1rem; height: 1rem; }
+
+/* ── Goal chips ── */
+.breed__controls { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+@media (max-width: 860px) { .breed__controls { grid-template-columns: 1fr; } }
+
+.goals { display: flex; flex-direction: column; gap: 0.5rem; }
+.goals__row { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.goals__blurb { margin: 0; font-size: 0.84rem; color: var(--ink-soft); min-height: 2.2em; }
+
+.chip {
+  font-family: var(--stamp);
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  background: var(--paper-card);
+  border: 1.5px solid var(--ink);
+  padding: 0.24rem 0.55rem;
+  cursor: pointer;
+}
+.chip:hover { background: var(--paper); }
+.chip--on { background: var(--ink); color: var(--paper-card); }
+
+/* ── Stimulation dial ── */
+.dial { display: flex; flex-direction: column; gap: 0.6rem; }
+.dial__top { display: flex; flex-direction: column; gap: 0.35rem; }
+.dial__label { display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem; }
+.dial__number {
+  font-family: var(--body);
+  font-size: 1.5rem;
+  font-weight: 700;
+  width: 5.2rem;
+  text-align: right;
+  background: transparent;
+  border: 0;
+  border-bottom: 2.5px solid var(--ink);
+}
+.dial__range { width: 100%; accent-color: var(--wound); }
+
+.dial__effects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 0; }
+.dial__effect { border-left: 3px solid var(--ink); padding-left: 0.45rem; }
+.dial__effect dd { margin: 0; font-size: 1.15rem; }
+.dial__note-small { font-size: 0.58rem; color: var(--ink-faint); }
+.dial__note { margin: 0; font-size: 0.8rem; color: var(--ink-soft); border-top: 1.5px dotted var(--ink-faint); padding-top: 0.45rem; }
+
+/* ── Home tally ── */
+.tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.6rem; }
+.tally__item { text-align: center; border-right: 1.5px dotted var(--ink-faint); }
+.tally__item:last-child { border-right: 0; }
+.tally__figure { font-family: var(--stamp); font-size: 2rem; line-height: 1; }
+
+/* ── Room plan ── */
+.rooms { display: flex; flex-direction: column; gap: 0.5rem; }
+.rooms__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; }
+.rooms__row { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; border: 1.5px solid var(--ink); padding: 0.3rem 0.5rem; background: var(--paper-card); }
+.rooms__name { font-family: var(--stamp); font-size: 0.85rem; }
+.rooms__row input { font: inherit; font-weight: 700; width: 4.5rem; text-align: right; background: transparent; border: 0; border-bottom: 1.5px solid var(--ink); }
+.rooms__note { margin: 0; font-size: 0.78rem; color: var(--ink-faint); }
+
+.planned { position: relative; padding-top: 0.7rem; }
+.planned__room { position: absolute; top: -0.1rem; left: 0.9rem; z-index: 2; background: var(--mustard); color: var(--ink); border-color: var(--ink); }
+
+.benched { display: flex; flex-direction: column; gap: 0.3rem; }
+.benched__list { margin: 0; font-size: 0.84rem; color: var(--ink-soft); }

@@ -1,0 +1,36 @@
+# Real save files — never commit these. They contain a Steam ID and personal data.
+*.sav
+*.sav.bak
+saves/
+backup/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+.vite/
+
+# Test / coverage
+coverage/
+test-results/
+playwright-report/
+.playwright/
+
+# Scratch + local analysis artifacts
+scratch/
+*.local
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+preview.html
