@@ -6,6 +6,7 @@ const DEFAULT_PATH = '%APPDATA%\\Glaiel Games\\Mewgenics\\<steam-id>\\saves';
 
 export function Welcome({
   onPick,
+  onBrowse,
   onDrop,
   onReopen,
   hasRemembered,
@@ -13,6 +14,7 @@ export function Welcome({
   error,
 }: {
   onPick: () => void;
+  onBrowse: () => void;
   onDrop: (file: File) => void;
   onReopen: () => void;
   hasRemembered: boolean;
@@ -85,11 +87,36 @@ export function Welcome({
               {copied ? 'Copied' : 'Copy path'}
             </button>
             <span className="welcome__hint">
-              Paste it into the file picker's address bar. The file is called{' '}
-              <code>steamcampaign01.sav</code>.
+              The file is called <code>steamcampaign01.sav</code>. Paste the path into Explorer's
+              address bar to find it.
             </span>
           </div>
         </div>
+
+        {supportsFileHandles() && (
+          <div className="card card--sunk welcome__where">
+            <div className="stamp">if Chrome says the folder contains system files</div>
+            <p className="welcome__hint">
+              That is Chrome refusing to let any web page browse <code>%APPDATA%</code>. It is not
+              something we can talk it out of. Two ways round it:
+            </p>
+            <ul className="welcome__waysround">
+              <li>
+                <strong>Drag <code>steamcampaign01.sav</code> from Explorer onto this page.</strong>{' '}
+                Dropping a file is not blocked, and neither is{' '}
+                <button type="button" className="linkish" onClick={onBrowse}>
+                  the plain file dialog
+                </button>
+                .
+              </li>
+              <li>
+                <strong>Or copy the save to your Desktop</strong> and open that copy. Only a copy
+                opened from an allowed folder can be re-read on later visits — so if you want
+                one-click reloads, copy it again after each in-game day.
+              </li>
+            </ul>
+          </div>
+        )}
 
         <ul className="welcome__promises">
           <li>Your save never leaves this computer. There is no server to send it to.</li>

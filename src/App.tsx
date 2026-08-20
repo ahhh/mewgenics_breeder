@@ -82,9 +82,13 @@ export function App() {
     [load],
   );
 
+  const browse = useCallback(() => {
+    document.getElementById('fallback-input')?.click();
+  }, []);
+
   const pick = useCallback(async () => {
     if (!supportsFileHandles()) {
-      document.getElementById('fallback-input')?.click();
+      browse();
       return;
     }
     const picked = await pickSaveFile();
@@ -92,7 +96,7 @@ export function App() {
     setHandle(picked);
     await rememberHandle(picked);
     await openFromHandle(picked);
-  }, [openFromHandle]);
+  }, [browse, openFromHandle]);
 
   // Development affordance: `?sample` loads the save sitting in the project
   // root, so the UI can be worked on without clicking through a file picker.
@@ -134,6 +138,7 @@ export function App() {
         <RoughEdgeFilter />
         <Welcome
           onPick={pick}
+          onBrowse={browse}
           onDrop={load}
           onReopen={() => handle && void openFromHandle(handle)}
           hasRemembered={handle !== null}

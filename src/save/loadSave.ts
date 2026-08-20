@@ -1,4 +1,10 @@
 import initSqlJs, { type SqlJsStatic } from 'sql.js';
+// The browser build of sql.js asks for `sql-wasm-browser.wasm` — a different
+// file name from the Node build's `sql-wasm.wasm`. Importing the binary through
+// Vite pins the URL to the file the bundler actually resolved, so the name can
+// never drift from the package and the path is always correct for the deploy
+// base. A hand-copied public/ asset gave us neither, and 404'd every load.
+import wasmUrl from 'sql.js/dist/sql-wasm-browser.wasm?url';
 import { parseSave, type SaveTables } from '../parser/saveFile';
 import type { ParsedSave } from '../parser/types';
 
@@ -12,9 +18,13 @@ import type { ParsedSave } from '../parser/types';
 let sqlPromise: Promise<SqlJsStatic> | null = null;
 
 function loadSqlJs(): Promise<SqlJsStatic> {
-  sqlPromise ??= initSqlJs({
-    // Resolved through Vite's base so it works from a project Pages URL.
-    locateFile: (file) => `${import.meta.env.BASE_URL}${file}`,
+  sqlPromise ??= initSqlJs({ locateFile: () => wasmUrl }).catch((cause: unknown) => {
+    // Let the next attempt retry instead of caching the failure forever.
+    sqlPromise = null;
+    throw new SaveFormatError(
+      'The SQLite engine did not load, so we never got as far as your save. Check your connection and reload the page.',
+      { cause },
+    );
   });
   return sqlPromise;
 }
