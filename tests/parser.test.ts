@@ -1,15 +1,23 @@
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { unwrapCatBlob } from '../src/parser/lz4';
 import { KNOWN_CAT_FORMAT } from '../src/parser/catBlob';
-import { parseSave } from '../src/parser/saveFile';
-import { STAT_KEYS } from '../src/parser/types';
+import { parseSave, type SaveTables } from '../src/parser/saveFile';
+import { STAT_KEYS, type ParsedSave } from '../src/parser/types';
 import { hasRealSave, loadRealSaveTables } from './realSave';
 
 const describeReal = hasRealSave() ? describe : describe.skip;
 
+// Vitest still runs a skipped suite's body to collect its tests, so the save
+// has to be read in beforeAll — a top-level read would fire on CI, where there
+// is no save, and fail the run instead of skipping it.
 describeReal('parsing the real save', () => {
-  const tables = loadRealSaveTables();
-  const save = parseSave(tables, 'steamcampaign01.sav');
+  let tables: SaveTables;
+  let save: ParsedSave;
+
+  beforeAll(() => {
+    tables = loadRealSaveTables();
+    save = parseSave(tables, 'steamcampaign01.sav');
+  });
 
   it('finds every cat', () => {
     expect(tables.cats.size).toBe(161);

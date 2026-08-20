@@ -12,8 +12,23 @@ import type { SaveTables } from '../src/parser/saveFile';
  */
 export const REAL_SAVE_PATH = resolve(import.meta.dirname, '../steamcampaign01.sav');
 
+/**
+ * A bare existsSync is not enough: sqlite3 creates an empty database for any
+ * path it is handed, so a stray or truncated file would sail past the check and
+ * then fail deep inside a query. Ask sqlite3 for the cats table instead.
+ */
 export function hasRealSave(): boolean {
-  return existsSync(REAL_SAVE_PATH);
+  if (!existsSync(REAL_SAVE_PATH)) return false;
+  try {
+    const tables = execFileSync(
+      'sqlite3',
+      [REAL_SAVE_PATH, "select name from sqlite_master where type='table';"],
+      { encoding: 'utf8' },
+    );
+    return tables.split('\n').includes('cats');
+  } catch {
+    return false;
+  }
 }
 
 function query(sql: string): string {

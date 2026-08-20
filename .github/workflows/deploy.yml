@@ -26,9 +26,9 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # A project Pages site is served from /<repo>/. For a custom domain,
-          # set BASE_PATH to / here.
-          BASE_PATH: /${{ github.event.repository.name }}/
+          # Served from the custom domain mewgenics.lockboxx.org, so assets
+          # live at the root. A project Pages site would need /<repo>/ instead.
+          BASE_PATH: /
       - name: Fail if a save file slipped into the build
         run: |
           if find dist -name '*.sav' -print -quit | grep -q .; then

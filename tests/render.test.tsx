@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { parseSave } from '../src/parser/saveFile';
 import { isAvailable, type ParsedSave } from '../src/parser/types';
 import { analysePair } from '../src/breeding/pair';
@@ -12,9 +12,16 @@ import { hasRealSave, loadRealSaveTables } from './realSave';
 
 const describeReal = hasRealSave() ? describe : describe.skip;
 
+// See parser.test.ts: a skipped suite's body still runs, so the save must be
+// read in beforeAll rather than at the top level.
 describeReal('rendering against a real save', () => {
-  const save: ParsedSave = parseSave(loadRealSaveTables(), 'steamcampaign01.sav');
-  const available = save.cats.filter(isAvailable);
+  let save: ParsedSave;
+  let available: ParsedSave['cats'];
+
+  beforeAll(() => {
+    save = parseSave(loadRealSaveTables(), 'steamcampaign01.sav');
+    available = save.cats.filter(isAvailable);
+  });
 
   it('renders a card for every cat without throwing', () => {
     for (const cat of save.cats) {
